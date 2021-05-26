@@ -1,0 +1,95 @@
+\chapter{Introduction}\label{chap:Intro}
+
+Consider that there is a crisis in some portion of the world. Using social media, the problem is to identify relevant influencers, what these influencers are saying, and the reactions from the ordinary populace. Examples from the past include the 2014 annexation of Crimea by Russia, the 2011 Arab Spring, and others. To solve the problem it is necessary to characterize the influencer's followers' geographic spread. More broadly, this analysis is important for (i) content recommendation, (ii) local expert finding, and (iii) location-aware influence maximization.
+
+This research utilizes the Twitter platform. As an illustration, here are some of the more popular social media platforms based on the number of scholarly articles from Google Scholar: (i) Twitter 7.59M, (ii) Facebook: 6.69M, (iii) Reddit 1.74M, (iv) Instagram 1.63M, (v) Foursquare 0.048M.
+
+Twitter is an ideal platform for fast-spreading news. Twitter users are forced to be brief with a message character limit of 280 characters. In comparison, on Reddit users are engaged in longer conversations and thus have more data for natural language processing applications such as sentiment analysis. While other platforms, such as Facebook, have safeguards that do not allow connecting to a user without a user’s permission; Twitter is set up as a broadcasting platform where one user can quickly subscribe to any other.
+
+\section{Terminology}
+
+\begin{itemize}
+\setlength{\parskip}{0 in}
+%\item Initial Influencers: Twitter influencers from automatic Google searches related to cities making up the geographic regions.
+\item Twitter user = can be an influencer or a follower.
+\item Influencer = a user with followers; generally at least 500 followers.
+\item Geo-Influencer = influencer whose followers are concentrated in a geographic area. The size of the geographic area depends on the feature used to quantify the localization. Using time-based features geographic area is at the timezone. Using location-based features the geographic area could be at the city-level.
+\item Follower = a user that displayed an interest in an influencer through a follow.
+\item Ordinary Follower = one who has between 20 and 100 friends, less than 500 followers, not verified by Twitter, without a URL, and that does not generate over five tweets per day since created.
+\item City-Community = made up of ordinary followers that reside in the city. Verified via Tweet-based Home Location (THL), Self-reported Home Location (SHL), or connection to a known city-level geo-influencer.
+\end{itemize}
+
+\section{Twitter Challenges}
+
+Twitter users generate around 500 million daily tweets. Twitter has an Application Programming Interface (API) that allows collecting a portion of this data. The API has limits on number of calls allowed. Twitter does not allow researchers to share the collected data beyond the unique message and profile identifiers (others would have to collect on these ids to get the full dataset).
+
+Most users are mindful of their privacy and as a result, try to report little or no personal information. If personal information is reported, it is done at a very high level, such as by reporting a textual string that may or may not contain their actual name and city-level location. A lot of these users are passive readers that do not generate message traffic (about one-fourth of all users have never posted a message).
+
+If a Twitter user is known, their messages, followers, and friends can be collected. The Twitter API limits are such that it is not possible to collect all of Twitter by querying each user separately\footnote{The current rate limit for “GET followers/ids” is 1 request per minute. There are over 300 million Twitter users which would equate to a collection lasting over 300 million minutes.}. As a result, the social network graph is usually inferred from message traffic. If a user $A$, that generated the message, mentions user $B$, form a link between $A$ and $B$. Around 1\% of tweets can be collected using the free API.
+
+Some messages contain coordinates but they are usually less than 1\% of the Twitter stream. %(1\% of 1\% means the researcher can analyze less than 0.01\% of all messages generated). 
+A more popular option is to utilize the textual self-reported location of the user that generated the message. The self-reported location needs to be geocoded. About two-thirds of all Twitter users are English speakers and for this reason, the geocoder and scenario usually revolve around English speakers. If the scenario involves a non-English speaking country it may be hard to find a good geocoder for that particular language.
+
+Due to these challenges, a lot of works report collecting vasts amounts of data over many years to obtain a meaningful social graph. Furthermore, a lot of the message traffic is coming from bots (legitimate automated accounts) while around one-fourth of all Twitter users have never posted a single message. There is thus a danger in that the social graph may be more of a representation of what the bots are discussing vs. the ordinary populace. One may remove those that generate more than $n$ daily messages, but the issue remains in that a lot of silent consumers and those that could not be geocoded will be lost.
+
+\section{Thesis and Contributions}
+
+In this research, we illustrate how targetted collection can be performed to identify influencers based on a geographic area of interest. The influencer’s followers are studied for characterizing the influencer and for forming communities representative of ordinary users from the geographic area. The benefits are that the collection can occur faster and can capture a lot of users that are silent or hard to geocode. 
+
+On Twitter, when a user $x$ follows a user $y$, it means that the user $x$ will receive an update from Twitter whenever $y$ posts a message. In a way, each follower is casting a vote for a particular influencer. The popularity of a user is a measure of how many others this user can reach and potentially influence.
+
+When many followers are aggregated they can collectively provide useful information about the influencer. There are features, such as $p_1$\% have a self-reported location that can be geocoded to `New York NY' (related to location), $p_2$\% of followers speak English (related to language), and there are also subtle features such as $p_3$\% of followers whose creation time is during a specific hour $h$ (related to time).
+
+While the influencer's followers can help characterize the influencer, the influencer can in turn be used to characterize the followers. This is important because many followers will lack location information. Those followers that do not have location information, can be assigned a location based on other followers. This method will work, provided that the influencer is serving a small geographic area (a geo-influencer). For example, local traffic, local businesses, local news, and others are examples of such influencers. Geo-influencers cater their content to a specific geographic area and as a result, their followers tend to consist of users that are from or near the same geographic area. Following a local police department and local traffic serves as a strong indicator of the user's location even if the user does not list a valid self-reported location. Vice versa, an influencer with a global-like reach, with followers scattered globally, is not going to be useful for this task. Therefore, it is important to differentiate an influencer with a global following vs. a more local geo-influencer.
+
+For characterizing the influencer we consider (i) location, (ii) language, and (iii) time-based features. An important novel finding of our research, is that (i) the influencer's follower localization can be characterized using only their temporal features and (ii) targetted collection leveraging Google search can identify geo-influencers without geocoding.
+
+Our research has collected and utilized Twitter, but is applicable to social media in general. Social media typically involve users that can publish content and where the users can follow each other (followers and followee relations). As a result, if an approach is developed and works over one social network, it should work over another social network provided that the same variables exist. Typically, every social network has a timestamp for when users post and when users create their accounts. For this reason, even though we did not collect data from Reddit, Facebook, etc. we believe that the approach is applicable to these other social networks (because their structure, their user base, and their features are similar enough to the ones explored in our research).
+
+Chapter 2 analyzes geocoding performance on users from the USA. Questionable locations are identified by comparing the coordinates from user's messages to the geocoded coordinates from the self-reported location. Our research illustrates that Google's Geocoder is not well suited for data in the domain of Twitter. We show how additional parameters from the geocoder can be used to identify improperly geocoded locations and improve the geocoder. This helps identify 35\% of locations that are improperly geocoded, mostly due to noisy locations being matched to a street-level address.
+
+In Chapter 3, we propose a method for identifying city-level communities and associated geo-influencers. The method utilizes automated Google search queries to get a set of initial city-level geo-influencers. The followers of these geo-influencers are used for forming city-level communities. The follow connections from communities are utilized for identifying additional geo-influencers. Geo-influencers can be separated from more national types by analyzing if the influencer is connected to a single city-level community vs. multiple city-level communities. TF-IDF model where the terms are influencers can be used to generate a ranked list of influencers for each city-level community. The method is tested on 64 cities from the USA. %For validation, the city-level communities are formed only from users that specify a self-reported location that can be geocoded to within a 10-mile radius of the city. It is found that our method covers many more cities and has the benefit of capturing users that do not specify a self-reported location. For those users that do specify a self-reported location, 41.6\% contain the city of interest illustrating that the communities established by our proposed method are well aligned to the city of interest.
+
+Chapter 4 proposes several ways for computing central location from influencer's followers. This central location is used to evaluate the method in Chapter 3. A means by which a repository of geo-influencers can be established is proposed. Chapter 4 illustrates queries that are problematic for Google. %For example, one type of mistake stems from matching influencers not on location but based on screenname, description, or user-specified name. Examples of cities with human names are Lawrence MA, Anderson IN, and others. 
+Other factors such as the follower sample size and query result order are examined. The chapter also illustrates that the followers of multiple geo-influencers are better aligned to the city, and hence result in a better city-level community. %Because the geocoding solution is limited to only analyzing English locations it may be that some of the influencers associated with the USA actually stem from foreign countries. A classifier was proposed for filtering out these accounts with the most important feature based on the percent of locations that map to the USA (for foreign countries the ratio is very small). The geocoder used focused only on English, thus another contribution was a means of categorizing the USA vs. non-USA accounts even without having a geocoder that is dedicated to other languages. 
+
+In Chapter 5, we show how temporal features can be used for inferring the degree of localization for both social media users and message traffic. When applied over message traffic, the approach can differentiate top trending topics and persons in different geographical regions. Our analysis can help discover whether (and where) an influencer's followers are localized, even in the absence of geospatial tags. We demonstrate how several temporal features can be utilized for distinguishing local vs. global influencers. For global influencers, spatiotemporal analysis helps understand the evolution of their popularity over time.  We can also infer the number of followers that were gained in a specified period, which assists in estimating link creation times. Thus, temporal features can assist in deducing and utilizing information about the numbers and locations of influencers' followers.
+
+In Chapter 6, location information is incorporated for building a geocoding solution off of country region labels from temporal and language data. In the first step, of the proposed three-step approach, influencer's followers' creation times are used to create a time distribution to predict the time zone's Coordinated Universal Time (UTC) offset. The influencer is skipped if a UTC cannot be predicted with high confidence. In the second step, the followers' language features are used to constrain set of countries associated with the UTC offset. After all influencers are processed and associated with regions, in the third step, a modified TF-IDF model is trained on region labels and associated followers' self-reported locations. The TF-IDF model learns popular ways that Twitter users refer to locations within the region in their native language. The multilingual TF-IDF model can then be used to infer the region of influence, for a new influencer, from influencer's followers locations.
+
+Using the methods proposed in this paper, a repository of geo-influencers can be maintained. Chapter 7 shows an application related to content recommendation, whereby influencer is recommended using (i) the geographic locations, (ii) language, (iii) gender and (iv) ethnicity. A visualization, utilizing all of the main features proposed in the thesis, is presented, based on Kibana and ElasticSearch. 
+
+\iffalse
+\begin{table}
+\small
+\renewcommand{\arraystretch}{1.2}
+\caption{Acronyms and Abbreviations}
+\label{table_abbr}
+\centering
+\begin{tabular}{cl}
+\hline
+\bfseries Abbreviation & \bfseries Meaning \\
+\hline
+API & Application Programming Interface \\
+PAI & Publicly Accessible Information \\
+LAIM & Location-Aware Influence Maximization \\
+UTC & Coordinated Universal Time \\
+ADM1 & first-order administrative division (state in USA)\\
+ADM2 & second-order administrative division (subdivision of ADM1, county)\\
+TF-IDF & Term Frequency-Inverse Document Frequency \\
+CHAID & Chi-square interaction detector \\
+SVM & Support Vector Machines \\
+RFE & Recursive Feature Elimination \\
+RBO & Rank Biased Overlap \\
+HITS & Hyperlink-Induced Topic Search \\
+LDA & Latent Dirichlet Allocation \\
+LSA & Latent semantic analysis \\
+POI & Points of Interest \\
+MSE & Mean Square Error \\
+THL & Tweet-based Home Location \\
+SHL & Self-reported Home Location \\
+ED & Error Distance between THL and SHL \\
+PST & Potential Sleep Time \\
+\end{tabular}
+\end{table}
+\fi

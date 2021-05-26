@@ -1,0 +1,88 @@
+\documentclass[12pt]{report}
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\usepackage{algorithm, algorithmic}
+\usepackage{uhthesis3}
+\usepackage{epsfig}
+\usepackage{epsf}
+\usepackage{IEEEtrantools}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+%\raggedbottom
+\usepackage[caption=false]{subfig}
+\input{definitions.tex}
+
+\usepackage{sectsty}
+%sets the chapter font size 
+\sectionfont{\large \bfseries}
+\subsectionfont{\large \bfseries}
+%\subsubsectionfont{\normalsize \itshape}
+\subsubsectionfont{\normalsize \bfseries}
+\chapterfont{\Large}
+\chaptertitlefont{\large \bfseries}
+
+%overwrites distance between chapter heading and top of page, chapter heading and chapter title, chapter title and body of text.
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\makeatletter
+% \patchcmd{<cmd>}{<search>}{<replace>}{<success>}{<failure>}
+% --- Patch \chapter
+\patchcmd{\@makechapterhead}{50\p@}{\chapheadtopskip}{}{}% Space from top of page to CHAPTER X
+\patchcmd{\@makechapterhead}{20\p@}{\chapheadsep}{}{}% Space between CHAPTER X and CHAPTER TITLE
+\patchcmd{\@makechapterhead}{40\p@}{\chapheadbelowskip}{}{}% Space between CHAPTER TITLE and text
+% --- Patch \chapter*
+\patchcmd{\@makeschapterhead}{50\p@}{\chapheadtopskip}{}{}% Space from top of page to CHAPTER TITLE
+\patchcmd{\@makeschapterhead}{40\p@}{\chapheadbelowskip}{}{}% SPace between CHAPTER TITLE and text
+\makeatother
+% Set new lengths
+\newlength{\chapheadtopskip}\setlength{\chapheadtopskip}{0pt}
+\newlength{\chapheadsep}\setlength{\chapheadsep}{10pt}
+\newlength{\chapheadbelowskip}\setlength{\chapheadbelowskip}{5pt}
+
+
+
+\begin{document}
+\copyrightfalse
+\input {a0_abstract.tex}
+\input {a1_titlepage.tex}
+\input {a2_copyright.tex}
+\input {a2_disclaimer.tex}
+\input {a3_acknoledgement.tex}
+\setlength{\parskip}{0.1 in}
+
+\makecontentspages
+%another option
+%\tableofcontents
+%\clearpage
+%\listoffigures
+%\clearpage
+%\listoftables
+%\clearpage
+%\setlength{\parskip}{.05 in}
+
+\chapterpages
+
+%turn figures on and off
+\newif \ifFIGS
+%\FIGStrue
+\FIGSfalse
+
+\input{p1_Introduction.tex}
+\graphicspath{{Paper2Figures/}}
+\input{p2_chap2.tex}
+\graphicspath{{Paper3Figures/}}
+\input{p3_chap3.tex}
+\graphicspath{{Paper4Figures/}}
+\input{p4_chap4.tex}
+\graphicspath{{Figures/}}
+\input{p5_chap5.tex}
+\graphicspath{{Paper5Figures/}}
+\input{p6_chap6.tex}
+\graphicspath{{repositoryFigures/}}
+\input{p7_chap7.tex}
+\input{Conclusion.tex}
+\input{references.tex}
+\bibliographystyle{abbrv}
+\input{vita.tex}
+
+\end{document}
