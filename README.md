@@ -1,3 +1,3 @@
 # PhD Syracuse Dissertation LaTeX
 
-I am attaching the LaTeX files I have used for submitting the dissertation in computer science at Syracuse University. The dissertation passed all of the format guidelines and appears on ProQuest. The University did not have a LaTeX template so maybe this will be helpful. The files were compiled using OverLeaf.
+I am attaching the LaTeX files I have used for submitting the dissertation in computer science at Syracuse University. The dissertation passed all of the format guidelines and appears on ProQuest. The University did not have a LaTeX template so maybe this will be helpful. The files were compiled using OverLeaf and Texmaker; when using Texmaker the main file to compile is thesis_template_01.tex. The zip file contains all of the files needed (sometimes the zip file cannot be trusted and so I included all of the files separately so that they may be browsed by anyone).
